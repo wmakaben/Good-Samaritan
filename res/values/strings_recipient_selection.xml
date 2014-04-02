@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="selection_title">Select Samaritans from:</string>
+    <string name="nearby_samaritans">Nearby Samaritans</string>
+    <string name="facebook_friends">Facebook friends</string>
+    <string name="send_request">Send Request</string>
+    
+</resources>

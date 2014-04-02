@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Good Samaritan</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="lend_a_hand">Lend a hand</string>
+    <string name="call_for_help">I Need a Good Samaritan</string>
+    <string name="pending_requests">Pending Requests</string>
+    <string name="title_activity_request_help">Create a Request</string>
+    <string name="title_activity_recipient_selection">Samaritan Selection</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>
