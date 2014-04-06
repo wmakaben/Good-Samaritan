@@ -10,15 +10,14 @@ import android.view.View;
 public class HomeActivity extends Activity {
 	
 	final String PREFS_NAME = "MyPrefsFile";			// Name for shared preferences file
-	
-	private SharedPreferences sharedPreferences;		// Shared Preferences
+	private SharedPreferences sharedPref;		// Shared Preferences
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
-		sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
+		sharedPref = getSharedPreferences(PREFS_NAME, 0);
 	}
 
 	@Override
@@ -28,9 +27,11 @@ public class HomeActivity extends Activity {
 		return true;
 	}
 	
+	@Override
 	protected void onResume(){
-		super.onResume();
 		checkLoginStatus();
+		
+		super.onResume();
 	}
 	
 	/** Checks if the user is logged in or if it is the first time the app is accessed on a device */
@@ -38,12 +39,14 @@ public class HomeActivity extends Activity {
 		// TODO: Check if the user is not logged in
 		
 		// Checks if this is the first time a device accesses the app
-		if(sharedPreferences.getBoolean("my_first_time", true)){
+		if(sharedPref.getBoolean("my_first_time", true)){
 			// TODO: Create sign in activity for first time users
 			
-			Intent loginIntent = new Intent(this, LoginActivity.class);
+			Intent loginIntent = new Intent(this, SignInActivity.class);
+			//Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivity(loginIntent);
-			sharedPreferences.edit().putBoolean("my_first_time", false);
+			sharedPref.edit().putBoolean("my_first_time", false).commit();
+			finish();
 		}
 	}
 	
@@ -60,7 +63,8 @@ public class HomeActivity extends Activity {
 	 * @param view
 	 */
 	public void showProfile(View view){
-		
+		Intent profileIntent = new Intent(this, SamaritanProfileActivity.class);
+		startActivity(profileIntent);
 	}
 	
 	/**

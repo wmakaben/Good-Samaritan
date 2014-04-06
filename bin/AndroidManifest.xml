@@ -43,6 +43,18 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        <activity
+            android:name="com.example.goodsamaritan.SamaritanProfileActivity"
+            android:label="@string/title_activity_samaritan_profile" >
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.SignInActivity"
+            android:label="@string/title_activity_sign_in" >
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
     </application>
 
 </manifest>

@@ -31,6 +31,8 @@ public class RequestHelpActivity extends Activity {
 		titleView = (TextView) findViewById(R.id.title_text);
 		descriptionView = (TextView) findViewById(R.id.description_text);
 		urgencyView = (RadioGroup) findViewById(R.id.urgency_buttons);
+		
+		
 	}
 
 	/** Set up the {@link android.app.ActionBar}. */
@@ -62,6 +64,16 @@ public class RequestHelpActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		if(request != null){
+			titleView.setText(request.getTitle());
+			descriptionView.setText(request.getDescription());
+			// TODO: set urgency button
+		}
 	}
 	
 	/**
