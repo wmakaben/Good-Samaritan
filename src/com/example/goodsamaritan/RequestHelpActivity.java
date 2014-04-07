@@ -1,3 +1,8 @@
+/*
+ * RequestHelpActivity
+ * Activity that allows the user to input info on the request and sends that info to the request database table
+ */
+
 package com.example.goodsamaritan;
 
 import model.HelpRequest;
@@ -7,18 +12,21 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class RequestHelpActivity extends Activity {
-
-	private TextView titleView;
-	private TextView descriptionView;
+	
+	// UI References
+	private EditText titleView;
+	private EditText descriptionView;
 	private RadioGroup urgencyView;
 	// TODO: create a variable for the image
 	
+	// Request variable that stores user input as a request
 	private HelpRequest request;
 	
 	@Override
@@ -28,8 +36,9 @@ public class RequestHelpActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		titleView = (TextView) findViewById(R.id.title_text);
-		descriptionView = (TextView) findViewById(R.id.description_text);
+		// Sets up UI references
+		titleView = (EditText) findViewById(R.id.title_text);
+		descriptionView = (EditText) findViewById(R.id.description_text);
 		urgencyView = (RadioGroup) findViewById(R.id.urgency_buttons);
 		
 		
@@ -41,7 +50,7 @@ public class RequestHelpActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -69,6 +78,8 @@ public class RequestHelpActivity extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		
+		// TODO: saves and displays user input if user clicks back on recipient selection activity
 		if(request != null){
 			titleView.setText(request.getTitle());
 			descriptionView.setText(request.getDescription());
@@ -89,7 +100,8 @@ public class RequestHelpActivity extends Activity {
 	}
 	
 	/**
-	 * 
+	 * Checks the user input and sets errors if any required information is missing
+	 * Stores the information in the request object if it looks good
 	 * @return
 	 */
 	public boolean checkInfo(){
@@ -101,6 +113,7 @@ public class RequestHelpActivity extends Activity {
 		
 		titleView.setError(null);
 		
+		// Checks if there is a missing field
 		if(requestTitle == "" || urgency == ""){
 			// TODO: set error flags
 			if(requestTitle == "")
@@ -109,6 +122,7 @@ public class RequestHelpActivity extends Activity {
 				//TODO: set error flag for urgency
 			return false;
 		}
+		// Else - information checks out, so save it to a request
 		else{
 			request = new HelpRequest(requestTitle, 0);	// TODO: pass in actual sender ID from profile
 			request.setDescription(description);

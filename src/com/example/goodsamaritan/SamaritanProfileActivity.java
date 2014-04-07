@@ -1,3 +1,8 @@
+/*
+ * SamaritanProfileActivity
+ * An activity that displays the Samaritan profile.
+ */
+
 package com.example.goodsamaritan;
 
 import android.os.Bundle;

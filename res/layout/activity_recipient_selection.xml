@@ -7,7 +7,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RecipientSelectionActivity" >
-
+	
+    <!-- Figure out how to check the database and create checkboxes for groups that a samaritan is part of -->
+    
     <TextView 
         android:id="@+id/select_samaritans" 
         android:layout_width="wrap_content"

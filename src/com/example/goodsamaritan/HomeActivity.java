@@ -1,3 +1,7 @@
+/*
+ * HomeActivity - the home page of the app
+ */
+
 package com.example.goodsamaritan;
 
 import android.os.Bundle;
@@ -9,7 +13,7 @@ import android.view.View;
 
 public class HomeActivity extends Activity {
 	
-	final String PREFS_NAME = "MyPrefsFile";			// Name for shared preferences file
+	final String PREFS_NAME = "MyPrefsFile";	// Name for shared preferences file
 	private SharedPreferences sharedPref;		// Shared Preferences
 
 	@Override
@@ -30,17 +34,15 @@ public class HomeActivity extends Activity {
 	@Override
 	protected void onResume(){
 		checkLoginStatus();
-		
 		super.onResume();
 	}
 	
 	/** Checks if the user is logged in or if it is the first time the app is accessed on a device */
 	public void checkLoginStatus(){
-		// TODO: Check if the user is not logged in
+		// TODO: Check shared preferences for the value of the "email" and "password" key. If empty then call login activity
 		
 		// Checks if this is the first time a device accesses the app
 		if(sharedPref.getBoolean("my_first_time", true)){
-			// TODO: Create sign in activity for first time users
 			
 			Intent loginIntent = new Intent(this, SignInActivity.class);
 			//Intent loginIntent = new Intent(this, LoginActivity.class);
@@ -48,6 +50,9 @@ public class HomeActivity extends Activity {
 			sharedPref.edit().putBoolean("my_first_time", false).commit();
 			finish();
 		}
+		
+		
+		
 	}
 	
 	/**
@@ -56,6 +61,10 @@ public class HomeActivity extends Activity {
 	 */
 	public void showSettings(View view){
 		
+		// This line is only for testing the login/registration activity. Remove it eventually
+		sharedPref.edit().putBoolean("my_first_time", true).commit();
+		
+		// TODO: Create settings activity
 	}
 	
 	/**
@@ -81,7 +90,7 @@ public class HomeActivity extends Activity {
 	 * @param view
 	 */
 	public void lendAHand(View view){
-		
+		// TODO: create helping activity process
 	}
 	
 	/**
@@ -89,7 +98,7 @@ public class HomeActivity extends Activity {
 	 * @param view
 	 */
 	public void showPendingRequests(View view){
-		
+		// TODO: Display the pending request activity
 	}
 
 }

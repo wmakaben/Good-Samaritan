@@ -1,3 +1,8 @@
+/*
+ * RecipientSelectionActivity
+ * Provides a list of groups/organizations that the user can choose to send the request to
+ */
+
 package com.example.goodsamaritan;
 
 import android.os.Bundle;
@@ -12,7 +17,9 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class RecipientSelectionActivity extends Activity {
-
+	
+	// TODO: check the database for organizations/groups that the samaritan is a member of and create checkboxes for each
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

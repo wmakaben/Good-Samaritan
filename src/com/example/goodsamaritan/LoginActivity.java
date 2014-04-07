@@ -1,3 +1,7 @@
+/*
+ * This class is only the example login activity provided by android. The login activity that will be used is the SignInActivity.java class
+ */
+
 package com.example.goodsamaritan;
 
 import android.animation.Animator;
