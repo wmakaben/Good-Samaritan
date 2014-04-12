@@ -4,9 +4,15 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -54,6 +60,34 @@
         <activity
             android:name="com.example.goodsamaritan.RegisterActivity"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.PendingRequestActivity"
+            android:label="@string/title_activity_pending_request"
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.RequestFragment"
+            android:label="@string/title_activity_request_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.HelperFragment"
+            android:label="@string/title_activity_helper_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.EditRequestFragment"
+            android:label="@string/title_activity_edit_request_fragment" >
         </activity>
     </application>
 

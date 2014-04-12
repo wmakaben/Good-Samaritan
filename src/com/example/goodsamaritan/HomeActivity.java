@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class HomeActivity extends Activity {
@@ -32,6 +33,23 @@ public class HomeActivity extends Activity {
 	}
 	
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		// Handle presses on the action bar items
+		switch(item.getItemId()){
+			case R.id.action_settings:
+				showSettings();
+				return true;
+			
+			case R.id.action_profile:
+				showProfile();
+				return true;
+				
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	@Override
 	protected void onResume(){
 		checkLoginStatus();
 		super.onResume();
@@ -42,15 +60,14 @@ public class HomeActivity extends Activity {
 		// TODO: Check shared preferences for the value of the "email" and "password" key. If empty then call login activity
 		
 		// Checks if this is the first time a device accesses the app
-		if(sharedPref.getBoolean("my_first_time", true)){
+		if(sharedPref.getBoolean("first_time", true)){
 			
 			Intent loginIntent = new Intent(this, SignInActivity.class);
 			//Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivity(loginIntent);
-			sharedPref.edit().putBoolean("my_first_time", false).commit();
+			sharedPref.edit().putBoolean("first_time", false).commit();
 			finish();
 		}
-		
 		
 		
 	}
@@ -59,19 +76,16 @@ public class HomeActivity extends Activity {
 	 * Starts the SettingsActivity
 	 * @param view
 	 */
-	public void showSettings(View view){
-		
-		// This line is only for testing the login/registration activity. Remove it eventually
-		sharedPref.edit().putBoolean("my_first_time", true).commit();
-		
-		// TODO: Create settings activity
+	public void showSettings(){
+		Intent settingsIntent = new Intent(this, SettingsActivity.class);
+		startActivity(settingsIntent);
 	}
 	
 	/**
 	 * Starts the ProfileActivity
 	 * @param view
 	 */
-	public void showProfile(View view){
+	public void showProfile(){
 		Intent profileIntent = new Intent(this, SamaritanProfileActivity.class);
 		startActivity(profileIntent);
 	}
@@ -91,6 +105,9 @@ public class HomeActivity extends Activity {
 	 */
 	public void lendAHand(View view){
 		// TODO: create helping activity process
+		
+		// This line is only for testing the login/registration activity. Remove it eventually
+		sharedPref.edit().putBoolean("first_time", true).commit();
 	}
 	
 	/**
@@ -98,7 +115,8 @@ public class HomeActivity extends Activity {
 	 * @param view
 	 */
 	public void showPendingRequests(View view){
-		// TODO: Display the pending request activity
+		Intent intent = new Intent(this, PendingRequestActivity.class);
+		startActivity(intent);
 	}
 
 }

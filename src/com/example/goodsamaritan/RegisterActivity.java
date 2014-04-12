@@ -5,9 +5,6 @@
 
 package com.example.goodsamaritan;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import model.LoginValidation;
 import model.Samaritan;
 import android.app.Activity;
@@ -72,10 +69,12 @@ public class RegisterActivity extends Activity {
 	public void registerAttempt(View view){
 		
 		if(isValidInput()){
+			// Samaritan object that holds the input values
 			newUser = new Samaritan(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString());
 			newUser.setPassword(password.getText().toString());
 			
 			// TODO: Add samaritan data to the database as an unverified new user, verification is done by email
+			// TODO: add samaritan data by using the Samaritan class getter methods
 			
 			// Registration notification
 			Context context = getApplicationContext();

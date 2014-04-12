@@ -133,5 +133,4 @@ public class RequestHelpActivity extends Activity {
 	
 	// TODO: Check if title and urgency are empty
 	// TODO: Connect picture button to camera
-
 }

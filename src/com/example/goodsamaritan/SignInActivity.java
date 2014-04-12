@@ -80,7 +80,7 @@ public class SignInActivity extends Activity {
 	
 	/**
 	 * Checks if the email and password follow the correct format or if it exists in the database
-	 * @return
+	 * @return	true if input is correct, false otherwise
 	 */
 	public boolean isValidCredentials(){
 		boolean isValid = true;
