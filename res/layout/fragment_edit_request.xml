@@ -1,3 +1,5 @@
+<!-- Intended to be used by any activities that allow the user to input information on a request. Will be implemented later  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

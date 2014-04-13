@@ -1,3 +1,5 @@
+// TODO: Fragment for any activities that allow the user to input data. Should be implemented in the future
+
 package com.example.goodsamaritan;
 
 import android.os.Bundle;
