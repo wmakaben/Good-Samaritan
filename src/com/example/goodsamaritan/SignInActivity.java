@@ -5,19 +5,31 @@
 
 package com.example.goodsamaritan;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
+import model.JSONParser;
 import model.LoginValidation;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SignInActivity extends Activity {
 	
@@ -26,10 +38,18 @@ public class SignInActivity extends Activity {
 	private EditText passwordText;		// password EditText
 	private TextView registerLink;		// TextView link to register activity
 	
+	private String dbPassword;			// User password from database
+	private String inputPassword;		// Password from password field
+	
 	LoginValidation validator = new LoginValidation();	// LoginValidator - checks if email/password is valid
 	
 	final String PREFS_NAME = "MyPrefsFile";	// Name for shared preferences file
 	private SharedPreferences sharedPref;		// Shared Preferences
+	
+	private JSONParser jsonParser;	// Parses JSON
+	private ProgressDialog pDialog;	// Progress dialog for registering
+    private static String url_login = "http://153.104.19.82:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
+    private static final String TAG_SUCCESS = "success";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +87,33 @@ public class SignInActivity extends Activity {
 	public void loginAttempt(View view){
 		
 		if(isValidCredentials()){
-			// Saves the login credentials to shared preferences
-			sharedPref.edit().putString("email", emailText.getText().toString()).commit();
-			sharedPref.edit().putString("password", passwordText.getText().toString()).commit();
+			new Login().execute();
 			
-			// Starts the Home Activity after login
-			Intent i = new Intent(this, HomeActivity.class);
-			startActivity(i);
-			finish();
+			System.out.println("Password: " + dbPassword);
+			
+			//inputPassword = passwordText.getText().toString();			
+			inputPassword = "password1";
+			// Check if database password matches the user input password
+			if(dbPassword.equals(inputPassword)){
+				
+				// Saves the login credentials to shared preferences
+				sharedPref.edit().putString("email", emailText.getText().toString()).commit();
+				sharedPref.edit().putString("password", inputPassword);
+				
+				//Intent i = new Intent(this, HomeActivity.class);
+				//startActivity(i);
+				finish();
+			}
+			
+			else{
+				// TODO: Wrong password notification
+				Context context = getApplicationContext();
+				CharSequence text = "Wrong Password";
+				int duration = Toast.LENGTH_LONG;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+			}
 		}
 	}
 	
@@ -90,13 +129,63 @@ public class SignInActivity extends Activity {
 			emailText.setError("Invalid Email Address");
 		}
 		
-		// TODO: Check if email is in database, set error
-		// TODO: Check if the password in the database matches the password input, set error
-		
 		return isValid;
 	}
 	
+	class Login extends AsyncTask<String, String, String>{
+		
+		List<NameValuePair> params;
+		
+		@Override
+		protected void onPreExecute(){
+			super.onPreExecute();
+			pDialog = new ProgressDialog(SignInActivity.this);
+			pDialog.setMessage("Logging In...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
+			
+			params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("email", emailText.getText().toString()));
+			
+		}
+		
+		@Override
+		protected String doInBackground(String... args) {
+			JSONObject json = jsonParser.makeHttpRequest(url_login, "POST", params);
+			System.out.println("JSON: " + json.toString());
+			
+			try{
+				int success = json.getInt(TAG_SUCCESS);
+				
+				System.out.println("Success: " + success);		// TODO: remove later
+				
+				if(success == 1){
+					// Get the password for the email
+					dbPassword = json.getString("Password");
+					finish();
+				}
+				else{
+					dbPassword = "a";
+				}
+			}catch(JSONException e){
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(String file_url){
+			pDialog.dismiss();
+		}
+		
+	}
+	
+	
 	// TODO: Option for forgotten passwords
+<<<<<<< HEAD
 	// TODO: save email/password to sharedpreferences
 
+=======
+>>>>>>> 93e2e45543dbeb6c5803ae44588f266f03c4f774
 }

@@ -23,6 +23,8 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.activity_home);
 		
 		sharedPref = getSharedPreferences(PREFS_NAME, 0);
+		
+		sharedPref.edit().putBoolean("first_time", true).commit();	// TODO: Remove Later
 	}
 
 	@Override
@@ -63,10 +65,9 @@ public class HomeActivity extends Activity {
 		if(sharedPref.getBoolean("first_time", true)){
 			
 			Intent loginIntent = new Intent(this, SignInActivity.class);
-			//Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivity(loginIntent);
 			sharedPref.edit().putBoolean("first_time", false).commit();
-			finish();
+			//finish();
 		}
 		
 		
