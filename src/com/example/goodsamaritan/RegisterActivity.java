@@ -110,7 +110,7 @@ public class RegisterActivity extends Activity {
 			int duration = Toast.LENGTH_LONG;
 			Toast toast = Toast.makeText(context, text, duration);
 			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
+			toast.show();			
 			
 			finish();
 		}
@@ -164,12 +164,14 @@ public class RegisterActivity extends Activity {
 		@Override
 		protected String doInBackground(String... args) {
 			JSONObject json = jsonParser.makeHttpRequest(url_register, "POST", params);
+			System.out.println("JSON: " + json.toString());		// TODO: for testing, remove later
 			
 			try{
 				int success = json.getInt(TAG_SUCCESS);
+				System.out.println("Success: " + success);	// TODO: remove later, for testing
 				if(success == 1){
 					//start the home activity if successful
-					Intent i  = new Intent(getApplicationContext(), HomeActivity.class);
+					Intent i  = new Intent(getApplicationContext(), LoginActivity.class);
 					startActivity(i);
 					//closing screen
 					//pDialog.dismiss();
@@ -193,15 +195,6 @@ public class RegisterActivity extends Activity {
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.show();
-			
-			/*
-			first = firstName.getText().toString();
-			last = lastName.getText().toString();
-			latitude = "0";
-			longitude = "0";
-			emailinsert = email.getText().toString();
-			passwordinsert = password.getText().toString();
-            */ 
                
 			params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("first", newUser.getFirstName()));
