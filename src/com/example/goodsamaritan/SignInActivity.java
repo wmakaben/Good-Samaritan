@@ -98,4 +98,5 @@ public class SignInActivity extends Activity {
 	
 	// TODO: Option for forgotten passwords
 	// TODO: save email/password to sharedpreferences
+
 }
