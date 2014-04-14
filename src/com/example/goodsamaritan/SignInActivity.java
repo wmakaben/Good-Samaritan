@@ -7,6 +7,7 @@ package com.example.goodsamaritan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import model.JSONParser;
 import model.LoginValidation;
@@ -48,7 +49,7 @@ public class SignInActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	private ProgressDialog pDialog;	// Progress dialog for registering
-    private static String url_login = "http://153.104.19.82:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
+    private static String url_login = "http://153.104.113.109:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
     private static final String TAG_SUCCESS = "success";
 	
 	@Override
@@ -62,6 +63,7 @@ public class SignInActivity extends Activity {
 		registerLink = (TextView) findViewById(R.id.register_link);
 		
 		sharedPref = getSharedPreferences(PREFS_NAME, 0);
+		jsonParser = new JSONParser();
 		
 		jsonParser = new JSONParser();
 		
@@ -89,14 +91,23 @@ public class SignInActivity extends Activity {
 	public void loginAttempt(View view){
 		
 		if(isValidCredentials()){
-			new Login().execute();
+			try {
+				new Login().execute().get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			System.out.println("Password: " + dbPassword);
 			
-			//inputPassword = passwordText.getText().toString();			
-			inputPassword = "password1";
+			inputPassword = passwordText.getText().toString();			
+			//inputPassword = "passeord";
+			//dbPassword = "passeord";
 			// Check if database password matches the user input password
-			if(dbPassword.equals(inputPassword)){
+			if(dbPassword != null && dbPassword.equals(inputPassword)){
 				
 				// Saves the login credentials to shared preferences
 				sharedPref.edit().putString("email", emailText.getText().toString()).commit();
@@ -154,13 +165,19 @@ public class SignInActivity extends Activity {
 		@Override
 		protected String doInBackground(String... args) {
 			JSONObject json = jsonParser.makeHttpRequest(url_login, "POST", params);
+
+			Log.i("JSON: ", json.toString());
 			
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 								
 				if(success == 1){
 					// Get the password for the email
+					Log.i("Password from JSON", json.getString("Password"));
 					dbPassword = json.getString("Password");
+
+					Log.i("PASSWORD VALUE", dbPassword);
+					//finish();
 				}
 				else{
 					dbPassword = "";	// TODO: change this later
