@@ -7,12 +7,14 @@ package com.example.goodsamaritan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import model.JSONParser;
 import model.LoginValidation;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,7 +50,7 @@ public class SignInActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	private ProgressDialog pDialog;	// Progress dialog for registering
-    private static String url_login = "http://153.104.19.82:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
+    private static String url_login = "http://153.104.113.109:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
     private static final String TAG_SUCCESS = "success";
 	
 	@Override
@@ -62,6 +64,7 @@ public class SignInActivity extends Activity {
 		registerLink = (TextView) findViewById(R.id.register_link);
 		
 		sharedPref = getSharedPreferences(PREFS_NAME, 0);
+		jsonParser = new JSONParser();
 		
 		// listener for TextView that switches to the register activity
 		registerLink.setOnClickListener(new View.OnClickListener() {
@@ -87,14 +90,23 @@ public class SignInActivity extends Activity {
 	public void loginAttempt(View view){
 		
 		if(isValidCredentials()){
-			new Login().execute();
+			try {
+				new Login().execute().get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			System.out.println("Password: " + dbPassword);
 			
-			//inputPassword = passwordText.getText().toString();			
-			inputPassword = "password1";
+			inputPassword = passwordText.getText().toString();			
+			//inputPassword = "passeord";
+			//dbPassword = "passeord";
 			// Check if database password matches the user input password
-			if(dbPassword.equals(inputPassword)){
+			if(dbPassword != null && dbPassword.equals(inputPassword)){
 				
 				// Saves the login credentials to shared preferences
 				sharedPref.edit().putString("email", emailText.getText().toString()).commit();
@@ -153,7 +165,7 @@ public class SignInActivity extends Activity {
 		@Override
 		protected String doInBackground(String... args) {
 			JSONObject json = jsonParser.makeHttpRequest(url_login, "POST", params);
-			System.out.println("JSON: " + json.toString());
+			Log.i("JSON: ", json.toString());
 			
 			try{
 				int success = json.getInt(TAG_SUCCESS);
@@ -162,8 +174,10 @@ public class SignInActivity extends Activity {
 				
 				if(success == 1){
 					// Get the password for the email
+					Log.i("Password from JSON", json.getString("Password"));
 					dbPassword = json.getString("Password");
-					finish();
+					Log.i("PASSWORD VALUE", dbPassword);
+					//finish();
 				}
 				else{
 					dbPassword = "a";
@@ -183,9 +197,4 @@ public class SignInActivity extends Activity {
 	
 	
 	// TODO: Option for forgotten passwords
-<<<<<<< HEAD
-	// TODO: save email/password to sharedpreferences
-
-=======
->>>>>>> 93e2e45543dbeb6c5803ae44588f266f03c4f774
 }
