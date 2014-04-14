@@ -24,7 +24,7 @@ public class HomeActivity extends Activity {
 		
 		sharedPref = getSharedPreferences(PREFS_NAME, 0);
 		
-		sharedPref.edit().putBoolean("first_time", true).commit();	// TODO: Remove Later
+		sharedPref.edit().putBoolean("first_time", false).commit();	// TODO: Remove Later
 	}
 
 	@Override

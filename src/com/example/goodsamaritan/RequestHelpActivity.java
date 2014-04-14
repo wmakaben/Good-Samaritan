@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class RequestHelpActivity extends Activity {
@@ -24,6 +23,9 @@ public class RequestHelpActivity extends Activity {
 	private EditText titleView;
 	private EditText descriptionView;
 	private RadioGroup urgencyView;
+	private RadioButton lowButton;
+	private RadioButton medButton;
+	private RadioButton highButton;
 	// TODO: create a variable for the image
 	
 	// Request variable that stores user input as a request
@@ -40,15 +42,19 @@ public class RequestHelpActivity extends Activity {
 		titleView = (EditText) findViewById(R.id.title_text);
 		descriptionView = (EditText) findViewById(R.id.description_text);
 		urgencyView = (RadioGroup) findViewById(R.id.urgency_buttons);
-		
+		lowButton = (RadioButton) findViewById(R.id.urgency_low);
+		medButton = (RadioButton) findViewById(R.id.urgency_medium);
+		highButton = (RadioButton) findViewById(R.id.urgency_high);
+		// Check off low button by default
+		lowButton.setChecked(true);
+		medButton.setChecked(false);
+		highButton.setChecked(false);
 		
 	}
 
 	/** Set up the {@link android.app.ActionBar}. */
 	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 	
 	@Override
@@ -62,9 +68,8 @@ public class RequestHelpActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
+			// This ID represents the Home or Up button. In the case of this activity, the Up button is shown. 
+			// Use NavUtils to allow users to navigate up one level in the application structure. For
 			// more details, see the Navigation pattern on Android Design:
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
@@ -79,7 +84,7 @@ public class RequestHelpActivity extends Activity {
 	protected void onResume(){
 		super.onResume();
 		
-		// TODO: saves and displays user input if user clicks back on recipient selection activity
+		// TODO: save and display user input if user clicks back on recipient selection activity
 		if(request != null){
 			titleView.setText(request.getTitle());
 			descriptionView.setText(request.getDescription());
@@ -93,9 +98,7 @@ public class RequestHelpActivity extends Activity {
 	 */
 	public void selectRecipients(View view){
 		Intent selectionIntent = new Intent(this, RecipientSelectionActivity.class);
-		
-		// TODO: Either pass request details to next activity or submit it to database here
-		
+		selectionIntent.putExtra("request", request);		
 		startActivity(selectionIntent);
 	}
 	
@@ -111,26 +114,28 @@ public class RequestHelpActivity extends Activity {
 		RadioButton urgencyButton = (RadioButton) findViewById(buttonID);
 		String urgency = urgencyButton.getText().toString();
 		
+		// Clear all previous errors
 		titleView.setError(null);
 		
 		// Checks if there is a missing field
-		if(requestTitle == "" || urgency == ""){
-			// TODO: set error flags
+		if(requestTitle == ""){
 			if(requestTitle == "")
 				titleView.setError(getString(R.string.missing_field_error));
-			//if(urgency=="")
-				//TODO: set error flag for urgency
 			return false;
 		}
 		// Else - information checks out, so save it to a request
 		else{
-			request = new HelpRequest(requestTitle, 0);	// TODO: pass in actual sender ID from profile
+			request = new HelpRequest(requestTitle, "0");	// TODO: pass in actual sender ID from profile
 			request.setDescription(description);
 			request.setUrgency(urgency);
 			return true;
 		}
 	}
 	
-	// TODO: Check if title and urgency are empty
 	// TODO: Connect picture button to camera
+	public void takePicture(){
+		
+	}
+	
+	// TODO: Check if title and urgency are empty
 }

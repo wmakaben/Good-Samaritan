@@ -63,6 +63,8 @@ public class SignInActivity extends Activity {
 		
 		sharedPref = getSharedPreferences(PREFS_NAME, 0);
 		
+		jsonParser = new JSONParser();
+		
 		// listener for TextView that switches to the register activity
 		registerLink.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -146,27 +148,22 @@ public class SignInActivity extends Activity {
 			pDialog.show();
 			
 			params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("email", emailText.getText().toString()));
-			
+			params.add(new BasicNameValuePair("email", emailText.getText().toString()));			
 		}
 		
 		@Override
 		protected String doInBackground(String... args) {
 			JSONObject json = jsonParser.makeHttpRequest(url_login, "POST", params);
-			System.out.println("JSON: " + json.toString());
 			
 			try{
 				int success = json.getInt(TAG_SUCCESS);
-				
-				System.out.println("Success: " + success);		// TODO: remove later
-				
+								
 				if(success == 1){
 					// Get the password for the email
 					dbPassword = json.getString("Password");
-					finish();
 				}
 				else{
-					dbPassword = "a";
+					dbPassword = "";	// TODO: change this later
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
@@ -182,5 +179,5 @@ public class SignInActivity extends Activity {
 	}
 	
 	
-	// TODO: Option for forgotten passwords
+	// TODO: Add option for forgotten passwords
 }

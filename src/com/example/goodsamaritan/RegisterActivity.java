@@ -68,8 +68,9 @@ public class RegisterActivity extends Activity {
 		loginLink.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent loginIntent = new Intent(getApplicationContext(), SignInActivity.class);
-				startActivity(loginIntent);
+				//Intent loginIntent = new Intent(getApplicationContext(), SignInActivity.class);
+				//startActivity(loginIntent);
+				finish();
 			}
 		});
 	}
@@ -127,6 +128,13 @@ public class RegisterActivity extends Activity {
 	 */
 	public boolean isValidInput(){
 		boolean isValid = true;
+		
+		// Clear any previous errors by setting them all to null
+		firstName.setError(null);
+		lastName.setError(null);
+		email.setError(null);
+		password.setError(null);
+		confirm_password.setError(null);
 		
 		// Check if the first name field is empty
 		if(firstName.getText().toString().trim().equals("")){
