@@ -8,40 +8,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RecipientSelectionActivity" >
 	
-    <!-- Figure out how to check the database and create checkboxes for groups that a samaritan is part of -->
-    
     <TextView 
         android:id="@+id/select_samaritans" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:text="@string/selection_title" />
-
-	<CheckBox 
-	    android:id="@+id/nearby_samaritans"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginBottom="15dp"
+    
+    <LinearLayout 
+        android:id="@+id/checkBoxLayout"
+        android:layout_width="match_parent"
+        android:layout_height ="fill_parent"
         android:layout_below="@+id/select_samaritans"
-	    android:text="@string/nearby_samaritans"/>
-	
-	<CheckBox 
-	    android:id="@+id/facebook_friends"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginBottom="15dp"
-        android:layout_below="@+id/nearby_samaritans"
-	    android:text="@string/facebook_friends"/>
-	
-	<!-- 
-	<CheckBox 
-	    android:id="@+id/villanova_group"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginBottom="15dp"
-        android:layout_below="@+id/facebook_friends"
-	    android:text="Villanova"/>
-	-->
+        android:layout_above="@+id/send_request_button"
+        android:orientation="vertical" >
+  		
+    </LinearLayout>
 	
 	<Button 
 	    android:id="@+id/send_request_button"

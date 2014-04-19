@@ -85,28 +85,18 @@ public class RequestHelpActivity extends Activity {
 		super.onResume();
 		
 		// TODO: save and display user input if user clicks back on recipient selection activity
-		if(request != null){
-			titleView.setText(request.getTitle());
-			descriptionView.setText(request.getDescription());
-			// TODO: set urgency button
+	}
+	
+	/** Starts the RecipientSelectionActivity and passes a request object to the next activity */
+	public void selectRecipients(View view){
+		if (checkInfo()){
+			Intent selectionIntent = new Intent(this, RecipientSelectionActivity.class);
+			selectionIntent.putExtra("help_request", request);		
+			startActivity(selectionIntent);
 		}
 	}
 	
-	/**
-	 * Starts the RecipientSelectionActivity
-	 * @param view
-	 */
-	public void selectRecipients(View view){
-		Intent selectionIntent = new Intent(this, RecipientSelectionActivity.class);
-		selectionIntent.putExtra("request", request);		
-		startActivity(selectionIntent);
-	}
-	
-	/**
-	 * Checks the user input and sets errors if any required information is missing
-	 * Stores the information in the request object if it looks good
-	 * @return
-	 */
+	/** Checks for missing inputs and stores info in the request object if it is fine */
 	public boolean checkInfo(){
 		String requestTitle = titleView.getText().toString();
 		String description = descriptionView.getText().toString();
@@ -118,14 +108,13 @@ public class RequestHelpActivity extends Activity {
 		titleView.setError(null);
 		
 		// Checks if there is a missing field
-		if(requestTitle == ""){
-			if(requestTitle == "")
-				titleView.setError(getString(R.string.missing_field_error));
+		if(requestTitle.trim().equals("")){
+			titleView.setError(getString(R.string.missing_field_error));
 			return false;
 		}
-		// Else - information checks out, so save it to a request
+		// Else - information checks out, save it to a request
 		else{
-			request = new HelpRequest(requestTitle, "0");	// TODO: pass in actual sender ID from profile
+			request = new HelpRequest(requestTitle);
 			request.setDescription(description);
 			request.setUrgency(urgency);
 			return true;
@@ -137,5 +126,4 @@ public class RequestHelpActivity extends Activity {
 		
 	}
 	
-	// TODO: Check if title and urgency are empty
 }

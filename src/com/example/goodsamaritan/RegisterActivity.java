@@ -68,8 +68,6 @@ public class RegisterActivity extends Activity {
 		loginLink.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//Intent loginIntent = new Intent(getApplicationContext(), SignInActivity.class);
-				//startActivity(loginIntent);
 				finish();
 			}
 		});
@@ -175,16 +173,10 @@ public class RegisterActivity extends Activity {
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
-					//start the home activity if successful
-					//Intent i  = new Intent(getApplicationContext(), HomeActivity.class);
-					//startActivity(i);
-					//closing screen
-					//pDialog.dismiss();
-					//finish();
+					// TODO: If successful connection then do something
 				}
 				else{
-					//failed to register
-					//finish();
+					// TODO: Unsuccessful connection, do something else 
 				}
 			}catch (JSONException e){
 				e.printStackTrace();
@@ -201,15 +193,6 @@ public class RegisterActivity extends Activity {
 			pDialog.setCancelable(true);
 			pDialog.show();
 			
-			/*
-			first = firstName.getText().toString();
-			last = lastName.getText().toString();
-			latitude = "0";
-			longitude = "0";
-			emailinsert = email.getText().toString();
-			passwordinsert = password.getText().toString();
-            */ 
-               
 			params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("first", newUser.getFirstName()));
 			params.add(new BasicNameValuePair("last", newUser.getLastName()));

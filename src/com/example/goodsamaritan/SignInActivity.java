@@ -63,7 +63,6 @@ public class SignInActivity extends Activity {
 		registerLink = (TextView) findViewById(R.id.register_link);
 		
 		sharedPref = getSharedPreferences(PREFS_NAME, 0);
-		jsonParser = new JSONParser();
 		
 		jsonParser = new JSONParser();
 		
@@ -113,8 +112,6 @@ public class SignInActivity extends Activity {
 				sharedPref.edit().putString("email", emailText.getText().toString()).commit();
 				sharedPref.edit().putString("password", inputPassword);
 				
-				//Intent i = new Intent(this, HomeActivity.class);
-				//startActivity(i);
 				finish();
 			}
 			
@@ -177,7 +174,6 @@ public class SignInActivity extends Activity {
 					dbPassword = json.getString("Password");
 
 					Log.i("PASSWORD VALUE", dbPassword);
-					//finish();
 				}
 				else{
 					dbPassword = "";	// TODO: change this later

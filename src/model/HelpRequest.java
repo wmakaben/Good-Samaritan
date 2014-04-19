@@ -11,7 +11,7 @@ import android.os.Parcelable;
 public class HelpRequest implements Parcelable {
 
 	private String requestID;
-	private String samaritanID;
+	private String helperID;
 	private String senderID;
 	private String title;
 	private String description;
@@ -21,21 +21,17 @@ public class HelpRequest implements Parcelable {
 	//TODO: date variable
 	//TODO: category?
 
-	public HelpRequest(String title, String senderID){
+	public HelpRequest(String title){
 		this.title = title;
-		this.senderID = senderID;
 	}
 	
-	/**
-	 * Constructor - takes in a parcelable object and transforms it into a HelpRequest object
-	 * @param in
-	 */
+	/** Constructor - takes in a parcelable object and transforms it into a HelpRequest object */
 	public HelpRequest(Parcel in){
 		String [] data = new String[6];
 		
 		in.readStringArray(data);
 		this.requestID = data[0];
-		this.samaritanID = data[1];
+		this.helperID = data[1];
 		this.senderID = data[2];
 		this.title = data[3];
 		this.description = data[4];
@@ -49,13 +45,18 @@ public class HelpRequest implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeStringArray(new String[]{this.requestID, this.samaritanID, this.senderID, this.title, this.description, this.urgency});
+		dest.writeStringArray(new String[]{	this.requestID, 
+											this.helperID, 
+											this.senderID, 
+											this.title, 
+											this.description, 
+											this.urgency});
 	}
 
-	public static final Parcelable.Creator<HelpRequest> Creator = new Parcelable.Creator<HelpRequest>() {
+	public static final Parcelable.Creator<HelpRequest> CREATOR = new Parcelable.Creator<HelpRequest>() {
 		@Override
-		public HelpRequest createFromParcel(Parcel source) {
-			return new HelpRequest(source);
+		public HelpRequest createFromParcel(Parcel in) {
+			return new HelpRequest(in);
 		}
 
 		@Override
@@ -67,8 +68,8 @@ public class HelpRequest implements Parcelable {
 	// Setters and Getters
 	public String getRequestID() {return requestID;}
 	public void setRequestID(String requestID) {this.requestID = requestID;}
-	public String getSamaritanID() {return samaritanID;}
-	public void setSamaritanID(String samaritanID) {this.samaritanID = samaritanID;}
+	public String gethelperID() {return helperID;}
+	public void sethelperID(String helperID) {this.helperID = helperID;}
 	public String getSenderID() {return senderID;}
 	public void setSenderID(String senderID) {this.senderID = senderID;}
 	public String getTitle() {return title;}

@@ -67,7 +67,6 @@ public class HomeActivity extends Activity {
 			Intent loginIntent = new Intent(this, SignInActivity.class);
 			startActivity(loginIntent);
 			sharedPref.edit().putBoolean("first_time", false).commit();
-			//finish();
 		}
 		
 		

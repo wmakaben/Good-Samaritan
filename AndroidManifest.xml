@@ -55,11 +55,19 @@
         </activity>
         <activity
             android:name="com.example.goodsamaritan.SignInActivity"
-            android:label="@string/title_activity_sign_in" >
+            android:label="@string/title_activity_sign_in"
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.HomeActivity" />
         </activity>
         <activity
             android:name="com.example.goodsamaritan.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:parentActivityName="com.example.goodsamaritan.SignInActivity" >
+            <meta-data
+                android:name="android.support.Parent_Activity"
+                android:value="com.example.goodsamaritan.SignInActivity" />
         </activity>
         <activity
             android:name="com.example.goodsamaritan.SettingsActivity"
