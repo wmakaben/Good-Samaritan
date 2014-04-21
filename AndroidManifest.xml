@@ -57,7 +57,7 @@
             android:name="com.example.goodsamaritan.SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
-            <meta-data 
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.HomeActivity" />
         </activity>
@@ -96,6 +96,14 @@
         <activity
             android:name="com.example.goodsamaritan.EditRequestFragment"
             android:label="@string/title_activity_edit_request_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.RequestListActivity"
+            android:label="@string/title_activity_request_list"
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.HomeActivity" />
         </activity>
     </application>
 

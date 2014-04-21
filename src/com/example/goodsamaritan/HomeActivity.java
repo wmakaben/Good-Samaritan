@@ -22,9 +22,7 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
-		sharedPref = getSharedPreferences(PREFS_NAME, 0);
-		
-		sharedPref.edit().putBoolean("first_time", false).commit();	// TODO: Remove Later
+		sharedPref = getSharedPreferences(PREFS_NAME, 0);		
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class RecipientSelectionActivity extends Activity {
 	private SharedPreferences sharedPref;
 	
 	private JSONParser jsonParser;	// Parses JSON
-	private ProgressDialog pDialog;	// Progress dialog for registering
+	private ProgressDialog pDialog;	// Progress dialog
 	private static String url_register = "http://153.104.19.82:81/GoodSamaritan/new_request.php";
     private static final String TAG_SUCCESS = "success";
     // TODO: get url for both getting groups and sending the request

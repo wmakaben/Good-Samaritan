@@ -22,5 +22,6 @@
     <string name="title_activity_request_fragment">Requests</string>
     <string name="title_activity_helper_fragment">Requests Helping</string>
     <string name="title_activity_edit_request_fragment">EditRequestFragment</string>
+    <string name="title_activity_request_list">Requests</string>
 
 </resources>
