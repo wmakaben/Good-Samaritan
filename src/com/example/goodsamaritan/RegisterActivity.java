@@ -35,6 +35,7 @@ public class RegisterActivity extends Activity {
 	private EditText firstName;			// EditText for first name input
 	private EditText lastName;			// EditText for last name input
 	private EditText email;				// EditText for email input
+	private EditText phoneNum;			// EditText for phone number
 	private EditText password;			// EditText for password input
 	private EditText confirm_password;	// EditText for password confirmation input
 	private TextView loginLink;			// TextView link to login activity
@@ -45,7 +46,7 @@ public class RegisterActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	private ProgressDialog pDialog;	// Progress dialog for registering
-    private static String url_register = "http://153.104.19.82:81/GoodSamaritan/newuser.php";		// TODO: get a better way of finding ip
+    private static String url_register = "http://153.104.156.139:81/GoodSamaritan/newuser.php";	
     private static final String TAG_SUCCESS = "success";
 	
 	@Override
@@ -57,6 +58,7 @@ public class RegisterActivity extends Activity {
 		firstName = (EditText) findViewById(R.id.first_name);
 		lastName = (EditText) findViewById(R.id.last_name);
 		email = (EditText) findViewById(R.id.email);
+		phoneNum = (EditText) findViewById(R.id.phone);
 		password = (EditText) findViewById(R.id.password);
 		confirm_password = (EditText) findViewById(R.id.confirm_password);
 		
@@ -96,6 +98,7 @@ public class RegisterActivity extends Activity {
 		if(isValidInput()){
 			// Samaritan object that holds the input values
 			newUser = new Samaritan(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString());
+			newUser.setPhoneNumber(phoneNum.getText().toString());
 			newUser.setPassword(password.getText().toString());
 			
 			// TODO: Add samaritan data to the database as an unverified new user, verification is done by email
@@ -148,6 +151,9 @@ public class RegisterActivity extends Activity {
 			email.setError("Improper email format");
 			isValid = false;
 		}
+		if(!validator.isValidPhoneNumber(phoneNum.getText().toString())){
+			phoneNum.setError("Phone # format: ############");
+		}
 		// Check if password follows proper format
 		if(!validator.isValidPassword(password.getText().toString())){
 			password.setError("Password must have at least 1 number, 1 lower case letter, and a length of 6-20 characters");
@@ -174,9 +180,11 @@ public class RegisterActivity extends Activity {
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
 					// TODO: If successful connection then do something
+					System.out.println("Connected");
 				}
 				else{
-					// TODO: Unsuccessful connection, do something else 
+					// TODO: Unsuccessful connection, do something else
+					System.out.println("Failed to Connect");
 				}
 			}catch (JSONException e){
 				e.printStackTrace();
@@ -193,13 +201,20 @@ public class RegisterActivity extends Activity {
 			pDialog.setCancelable(true);
 			pDialog.show();
 			
+			// TODO: set location
+			newUser.setLatitude(0);
+			newUser.setLongitude(0);
+			
 			params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("first", newUser.getFirstName()));
 			params.add(new BasicNameValuePair("last", newUser.getLastName()));
 			params.add(new BasicNameValuePair("latitude", String.valueOf(newUser.getLatitude())));
 			params.add(new BasicNameValuePair("longitude", String.valueOf(newUser.getLongitude())));
 			params.add(new BasicNameValuePair("email", newUser.getEmail()));
-			params.add(new BasicNameValuePair("password", newUser.getPassword()));
+			params.add(new BasicNameValuePair("password", newUser.getPassword().toString()));
+			params.add(new BasicNameValuePair("phone", newUser.getPhoneNumber()));
+			params.add(new BasicNameValuePair("longitude", String.valueOf(newUser.getLongitude())));
+			params.add(new BasicNameValuePair("latitude", String.valueOf(newUser.getLatitude())));
 		}
 		
 		protected void onPostExecute(String file_url){

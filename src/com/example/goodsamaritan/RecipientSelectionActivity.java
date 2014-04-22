@@ -40,13 +40,14 @@ public class RecipientSelectionActivity extends Activity {
 	private HelpRequest request;				// Request class that holds all the information of a request
 	private ArrayList<String> availableGroups;	// List that holds a list of all available groups to select from
 	private ArrayList<String> selectedGroups;	// List that holds a list of groups selected from the list of available groups
+	
 	// SharedPreferences variables
 	final String PREFS_NAME = "MyPrefsFile";
 	private SharedPreferences sharedPref;
 	
 	private JSONParser jsonParser;	// Parses JSON
-	private ProgressDialog pDialog;	// Progress dialog
-	private static String url_register = "http://153.104.19.82:81/GoodSamaritan/new_request.php";
+	//private ProgressDialog pDialog;	// Progress dialog
+	private static String url_register = "http://153.104.156.139:81/GoodSamaritan/new_request.php";
     private static final String TAG_SUCCESS = "success";
     // TODO: get url for both getting groups and sending the request
 	
@@ -97,13 +98,10 @@ public class RecipientSelectionActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
+			// This ID represents the Home or Up button. In the case of this activity, the Up button is shown. 
+			// Use NavUtils to allow users to navigate up one level in the application structure. 
+			// For more details, see the Navigation pattern on Android Design:
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
@@ -162,13 +160,16 @@ public class RecipientSelectionActivity extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			JSONObject json = jsonParser.makeHttpRequest(url_register, "POST", params);
+			System.out.println("Test");
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
 					// TODO: If successful connection then do something
+					System.out.println("Connected");
 				}
 				else{
 					// TODO: Unsuccessful connection, do something else 
+					System.out.println("Failed to connect");
 				}
 			}catch (JSONException e){
 				e.printStackTrace();
@@ -179,22 +180,26 @@ public class RecipientSelectionActivity extends Activity {
 		@Override
 		protected void onPreExecute(){
 			super.onPreExecute();
+			/*
 			pDialog = new ProgressDialog(RecipientSelectionActivity.this);
 			pDialog.setMessage("Requesting Help...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
 			pDialog.show();
+			*/
+			
+			System.out.println("Title: " + request.getTitle() + ", Urgency: " + request.getUrgency() + ", Email: " + sharedPref.getString("email", ""));
 			
 			params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("title", request.getTitle()));
 			params.add(new BasicNameValuePair("description", request.getDescription()));
 			params.add(new BasicNameValuePair("urgency", request.getUrgency()));
-			params.add(new BasicNameValuePair("email", sharedPref.getString("email", "")));
+			params.add(new BasicNameValuePair("email", sharedPref.getString("email", "").trim()));
 		}
 		
 		@Override
 		protected void onPostExecute(String file_url){
-			pDialog.dismiss();
+			//pDialog.dismiss();
 		}
 	}
 }

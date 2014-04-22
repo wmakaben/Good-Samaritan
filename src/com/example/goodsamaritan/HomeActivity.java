@@ -61,13 +61,14 @@ public class HomeActivity extends Activity {
 		
 		// Checks if this is the first time a device accesses the app
 		if(sharedPref.getBoolean("first_time", true)){
-			
 			Intent loginIntent = new Intent(this, SignInActivity.class);
 			startActivity(loginIntent);
 			sharedPref.edit().putBoolean("first_time", false).commit();
 		}
-		
-		
+		else if(sharedPref.getString("email", "").equals("") || sharedPref.getString("password", "").equals("")){
+			Intent loginIntent = new Intent(this, SignInActivity.class);
+			startActivity(loginIntent);
+		} 
 	}
 	
 	/**
@@ -84,6 +85,7 @@ public class HomeActivity extends Activity {
 	 * @param view
 	 */
 	public void showProfile(){
+		sharedPref.edit().putBoolean("first_time", true).commit();
 		Intent profileIntent = new Intent(this, SamaritanProfileActivity.class);
 		startActivity(profileIntent);
 	}
@@ -102,10 +104,8 @@ public class HomeActivity extends Activity {
 	 * @param view
 	 */
 	public void lendAHand(View view){
-		// TODO: create helping activity process
-		
-		// This line is only for testing the login/registration activity. Remove it eventually
-		sharedPref.edit().putBoolean("first_time", true).commit();
+		Intent intent = new Intent(this, RequestListActivity.class);
+		startActivity(intent);
 	}
 	
 	/**

@@ -50,10 +50,25 @@
         android:inputType="textEmailAddress" />
     
     <TextView 
-        android:id="@+id/password_text"
+        android:id="@+id/phone_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/email"
+        android:text="@string/phone_number" />
+    
+    <EditText 
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phone_text"
+        android:inputType="phone"
+         />
+    
+    <TextView 
+        android:id="@+id/password_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phone"
         android:text="@string/password" />
     
     <EditText 
@@ -95,7 +110,7 @@
         android:gravity="center"
         android:text="@string/link_to_login"
         android:textSize="15sp"
-        android:textColor="#0b84aa" /> />
+        android:textColor="#0b84aa" />
     
     
 </RelativeLayout>

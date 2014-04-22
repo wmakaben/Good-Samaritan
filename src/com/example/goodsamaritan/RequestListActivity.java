@@ -47,7 +47,7 @@ public class RequestListActivity extends Activity {
 	private SharedPreferences sharedPref;		// Shared Preferences
 	
 	private JSONParser jsonParser;	// Parses JSON
-	private static String url_register = "http://153.104.19.82:81/GoodSamaritan/.php";	// TODO: Fix url
+	private static String url_register = "http://153.104.156.139:81/GoodSamaritan/get_nearby_requests.php";	// TODO: Fix url
     private static final String TAG_SUCCESS = "success";
     private ProgressDialog pDialog;	// Progress dialog
     private ArrayList<HashMap<String, String>> requestList;
@@ -137,14 +137,13 @@ public class RequestListActivity extends Activity {
 				for(int i=0; i<requests.length(); i++){
 					JSONObject request = requests.getJSONObject(i);
 					
-					String title = request.getString("title");
-					String senderName = request.getString("sender_id");	// TODO: get sender name
-					String distance = "0";	// TODO: get distance
-					
+					String title = request.getString("Title");
+					String senderName = request.getString("First") + " " + request.getString("Last");
+					int distance = request.getInt("Distance");
 					HashMap<String, String> map = new HashMap<String, String>();
 					map.put(TITLE_TAG, title);
 					map.put(NAME_TAG, senderName);
-					map.put(DIST_TAG, distance);
+					map.put(DIST_TAG, String.valueOf(distance));
 					requestList.add(map);
 				}
 			}catch (JSONException e){

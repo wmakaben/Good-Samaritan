@@ -9,6 +9,7 @@ public class LoginValidation {
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	// Password Regex Pattern - 1 number, 1 lower case character, length 6-20
 	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z]).{6,20})";
+	private static final String PHONE_PATTERN = "^\\d{10}$";
 	private Pattern pattern;
 	private Matcher matcher;
 	
@@ -35,6 +36,12 @@ public class LoginValidation {
 	public boolean isValidPassword(CharSequence password){
 		pattern = Pattern.compile(PASSWORD_PATTERN);
 		matcher = pattern.matcher(password);
+		return matcher.matches();
+	}
+	
+	public boolean isValidPhoneNumber(CharSequence pNum){
+		pattern = Pattern.compile(PHONE_PATTERN);
+		matcher = pattern.matcher(pNum);
 		return matcher.matches();
 	}
 }

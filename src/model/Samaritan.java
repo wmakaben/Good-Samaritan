@@ -5,6 +5,7 @@ public class Samaritan {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String phoneNumber;
 	private int id;
 	private int requestsCompleted;
 	private int requestsAccepted;
@@ -59,5 +60,7 @@ public class Samaritan {
 
 	public void setLongitude(long longitude) { this.longitude = longitude; }
 	
+	public String getPhoneNumber(){ return phoneNumber; }
 	
+	public void setPhoneNumber(String phoneNumber){ this.phoneNumber = phoneNumber; }
 }

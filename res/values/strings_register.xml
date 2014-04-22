@@ -7,5 +7,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="register_button_text">Register</string>
     <string name="link_to_login">Already have an account? Login here</string>
+    <string name="phone_number">Phone Number</string>
     
 </resources>

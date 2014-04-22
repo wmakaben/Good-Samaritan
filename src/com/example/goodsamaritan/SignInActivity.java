@@ -49,7 +49,7 @@ public class SignInActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	private ProgressDialog pDialog;	// Progress dialog for registering
-    private static String url_login = "http://153.104.113.109:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
+    private static String url_login = "http://153.104.156.139:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
     private static final String TAG_SUCCESS = "success";
 	
 	@Override
@@ -93,26 +93,25 @@ public class SignInActivity extends Activity {
 			try {
 				new Login().execute().get();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			System.out.println("Password: " + dbPassword);
 			
 			inputPassword = passwordText.getText().toString();			
-			//inputPassword = "passeord";
-			//dbPassword = "passeord";
+			//inputPassword = "password";
+			//dbPassword = "password";
 			// Check if database password matches the user input password
 			if(dbPassword != null && dbPassword.equals(inputPassword)){
 				
 				// Saves the login credentials to shared preferences
 				sharedPref.edit().putString("email", emailText.getText().toString()).commit();
-				sharedPref.edit().putString("password", inputPassword);
+				sharedPref.edit().putString("password", inputPassword).commit();
 				
-				finish();
+				Intent intent = new Intent(this, HomeActivity.class);
+				startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 			}
 			
 			else{
