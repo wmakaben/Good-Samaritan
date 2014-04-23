@@ -72,6 +72,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int login_link=0x7f0b0019;
         public static final int login_status=0x7f0b0003;
         public static final int login_status_message=0x7f0b0004;
+        public static final int my_request_list=0x7f0b002e;
         public static final int pager=0x7f0b000a;
         public static final int password=0x7f0b0007;
         public static final int password_text=0x7f0b0015;
@@ -81,15 +82,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int problem_picture=0x7f0b0025;
         public static final int register_button=0x7f0b0018;
         public static final int register_link=0x7f0b002b;
+        public static final int request_helper_list=0x7f0b002c;
         public static final int request_title=0x7f0b001a;
         public static final int samaritan_profile_name=0x7f0b0028;
-        public static final int scroller=0x7f0b002d;
-        public static final int section_label=0x7f0b002c;
+        public static final int section_label=0x7f0b002d;
         public static final int select_samaritans=0x7f0b000b;
         public static final int send_request_button=0x7f0b000d;
         public static final int sender_name=0x7f0b002f;
         public static final int sign_in_button=0x7f0b0009;
-        public static final int table=0x7f0b002e;
         public static final int title=0x7f0b0027;
         public static final int title_text=0x7f0b001b;
         public static final int urgency=0x7f0b001e;

@@ -47,7 +47,7 @@ public class RequestListActivity extends Activity {
 	private SharedPreferences sharedPref;		// Shared Preferences
 	
 	private JSONParser jsonParser;	// Parses JSON
-	private static String url_register = "http://153.104.156.139:81/GoodSamaritan/get_nearby_requests.php";	// TODO: Fix url
+	private static String url_register = "http://153.104.37.89:81/GoodSamaritan/get_nearby_requests.php";
     private static final String TAG_SUCCESS = "success";
     private ProgressDialog pDialog;	// Progress dialog
     private ArrayList<HashMap<String, String>> requestList;

@@ -68,6 +68,7 @@ public class HomeActivity extends Activity {
 		else if(sharedPref.getString("email", "").equals("") || sharedPref.getString("password", "").equals("")){
 			Intent loginIntent = new Intent(this, SignInActivity.class);
 			startActivity(loginIntent);
+			sharedPref.edit().putBoolean("first_time", true).commit();
 		} 
 	}
 	
