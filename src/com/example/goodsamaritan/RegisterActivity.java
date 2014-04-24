@@ -46,7 +46,7 @@ public class RegisterActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	private ProgressDialog pDialog;	// Progress dialog for registering
-    private static String url_register = "http://153.104.37.89:81/GoodSamaritan/newuser.php";	
+    private static String url_register = "http://153.104.185.129:81/GoodSamaritan/newuser.php";	
     private static final String TAG_SUCCESS = "success";
 	
 	@Override

@@ -23,5 +23,8 @@
     <string name="title_activity_helper_fragment">Requests Helping</string>
     <string name="title_activity_edit_request_fragment">EditRequestFragment</string>
     <string name="title_activity_request_list">Requests</string>
+    <string name="title_activity_helper_request_view">Help Request</string>
+    <string name="title_activity_my_request">My Request</string>
+    <string name="title_activity_currently_helping">Request</string>
 
 </resources>

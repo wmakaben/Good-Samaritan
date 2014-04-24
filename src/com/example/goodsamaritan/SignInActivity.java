@@ -49,7 +49,7 @@ public class SignInActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	private ProgressDialog pDialog;	// Progress dialog for registering
-    private static String url_login = "http://153.104.37.89:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
+    private static String url_login = "http://153.104.185.129:81/GoodSamaritan/login.php";		// TODO: get a better way of finding ip
     private static final String TAG_SUCCESS = "success";
 	
 	@Override

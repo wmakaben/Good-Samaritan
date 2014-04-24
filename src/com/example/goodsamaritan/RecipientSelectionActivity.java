@@ -47,9 +47,9 @@ public class RecipientSelectionActivity extends Activity {
 	
 	private JSONParser jsonParser;	// Parses JSON
 	//private ProgressDialog pDialog;	// Progress dialog
-	private static String url_register = "http://153.104.37.89:81/GoodSamaritan/new_request.php";
+	private static String url_register = "http://153.104.185.129:81/GoodSamaritan/new_request.php";
     private static final String TAG_SUCCESS = "success";
-    // TODO: get url for both getting groups and sending the request
+    // TODO: get url for both getting groups
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

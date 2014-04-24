@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+    
+    <TextView
+        android:id="@+id/title"
+        android:layout_width = "fill_parent"
+        android:layout_height = "wrap_content"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/description"
+        android:layout_width = "0px"
+        android:layout_height = "0px" />
+    
+    <TextView
+        android:id="@+id/urgency"
+        android:layout_width = "0px"
+        android:layout_height = "0px" />
+    
+    <TextView
+        android:id="@+id/request_ID"
+        android:layout_width = "0px"
+        android:layout_height = "0px" />
+    
+    <TextView
+        android:id="@+id/accepted"
+        android:layout_width = "0px"
+        android:layout_height = "0px" />
+    
+    <TextView
+        android:id="@+id/samaritan_name"
+        android:layout_width ="0px"
+        android:layout_height="0px" />
+    
+    <TextView
+        android:id="@+id/samaritan_phone"
+        android:layout_width="0px"
+        android:layout_height="0px" />
+        
+</LinearLayout>

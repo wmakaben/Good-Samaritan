@@ -6,6 +6,9 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -16,13 +19,14 @@
 
     <application
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:debuggable="true" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.goodsamaritan.HomeActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +36,8 @@
         <activity
             android:name="com.example.goodsamaritan.RequestHelpActivity"
             android:label="@string/title_activity_request_help"
-            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.HomeActivity" />
@@ -40,15 +45,11 @@
         <activity
             android:name="com.example.goodsamaritan.RecipientSelectionActivity"
             android:label="@string/title_activity_recipient_selection"
-            android:parentActivityName="com.example.goodsamaritan.RequestHelpActivity" >
+            android:parentActivityName="com.example.goodsamaritan.RequestHelpActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.RequestHelpActivity" />
-        </activity>
-        <activity
-            android:name="com.example.goodsamaritan.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
             android:name="com.example.goodsamaritan.SamaritanProfileActivity"
@@ -57,7 +58,8 @@
         <activity
             android:name="com.example.goodsamaritan.SignInActivity"
             android:label="@string/title_activity_sign_in"
-            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.HomeActivity" />
@@ -65,7 +67,8 @@
         <activity
             android:name="com.example.goodsamaritan.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:parentActivityName="com.example.goodsamaritan.SignInActivity" >
+            android:parentActivityName="com.example.goodsamaritan.SignInActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.Parent_Activity"
                 android:value="com.example.goodsamaritan.SignInActivity" />
@@ -73,7 +76,8 @@
         <activity
             android:name="com.example.goodsamaritan.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.HomeActivity" />
@@ -81,7 +85,8 @@
         <activity
             android:name="com.example.goodsamaritan.PendingRequestActivity"
             android:label="@string/title_activity_pending_request"
-            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.HomeActivity" />
@@ -95,16 +100,38 @@
             android:label="@string/title_activity_helper_fragment" >
         </activity>
         <activity
-            android:name="com.example.goodsamaritan.EditRequestFragment"
-            android:label="@string/title_activity_edit_request_fragment" >
-        </activity>
-        <activity
             android:name="com.example.goodsamaritan.RequestListActivity"
             android:label="@string/title_activity_request_list"
-            android:parentActivityName="com.example.goodsamaritan.HomeActivity" >
+            android:parentActivityName="com.example.goodsamaritan.HomeActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goodsamaritan.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.HelperRequestViewActivity"
+            android:label="@string/title_activity_helper_request_view"
+            android:parentActivityName="com.example.goodsamaritan.RequestListActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.RequestListActivity" />
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.MyRequestActivity"
+            android:label="@string/title_activity_my_request"
+            android:parentActivityName="com.example.goodsamaritan.PendingRequestActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.PendingRequestActivity" />
+        </activity>
+        <activity
+            android:name="com.example.goodsamaritan.CurrentlyHelpingActivity"
+            android:label="@string/title_activity_currently_helping"
+            android:parentActivityName="com.example.goodsamaritan.PendingRequestActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goodsamaritan.PendingRequestActivity" />
         </activity>
     </application>
 

@@ -17,29 +17,32 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class RequestListActivity extends Activity {
 	
-	// HashMap tag references
-	private static final String TITLE_TAG = "title";
-	private static final String NAME_TAG = "sender_name";
-	private static final String DIST_TAG = "distance";
+	// tag references
+	private static final String FIRST_TAG = "First";
+	private static final String LAST_TAG = "Last";
+	private static final String NAME_TAG = "Sender_name";
+	private static final String SENDER_ID_TAG = "SenderID";
+	private static final String PHONE_TAG = "Phone";
+	private static final String REQUEST_ID_TAG = "ID";
+	private static final String TITLE_TAG = "Title";
+	private static final String DESCRIPTION_TAG = "Description";
+	private static final String URGENCY_TAG = "Urgency";
+	private static final String DIST_TAG = "Distance";
+	private static final String HELP_REQUEST_TAG = "help_request";
 	
 	private ListView listView;	// UI Reference
 	
@@ -47,8 +50,8 @@ public class RequestListActivity extends Activity {
 	private SharedPreferences sharedPref;		// Shared Preferences
 	
 	private JSONParser jsonParser;	// Parses JSON
-	private static String url_register = "http://153.104.37.89:81/GoodSamaritan/get_nearby_requests.php";
-    private static final String TAG_SUCCESS = "success";
+	//private static String url_register = "http://153.104.90.74:81/GoodSamaritan/get_request_join_tables.php";
+	private static String url_register = "http://153.104.185.129:81/GoodSamaritan/get_nearby_requests.php";
     private ProgressDialog pDialog;	// Progress dialog
     private ArrayList<HashMap<String, String>> requestList;
 	
@@ -71,10 +74,24 @@ public class RequestListActivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parentAdapter, View view, int position, long id) {
-				TextView clickedView = (TextView) view;
+				System.out.println("Setting up intent");
 				
-				// TODO: Get info from text view and pass it through an intent
+				HelpRequest helpRequest = new HelpRequest(((TextView) view.findViewById(R.id.request_title)).getText().toString());
+				helpRequest.setDescription(((TextView) view.findViewById(R.id.description)).getText().toString());
+				helpRequest.setSenderID(((TextView) view.findViewById(R.id.sender_id)).getText().toString());
+				helpRequest.setRequestID(((TextView) view.findViewById(R.id.request_id)).getText().toString());
+				helpRequest.setUrgency(((TextView) view.findViewById(R.id.urgency)).getText().toString());
 				
+				System.out.println(helpRequest.getTitle() + ", " + helpRequest.getDescription() + ", " + helpRequest.getSenderID() + ", "+ helpRequest.getUrgency() + ", " + helpRequest.getRequestID());
+				
+				String name = ((TextView) view.findViewById(R.id.sender_name)).getText().toString();
+				String phoneNumber = ((TextView) view.findViewById(R.id.phone_number)).getText().toString();
+				
+				Intent i = new Intent(getApplicationContext(), HelperRequestViewActivity.class);
+				i.putExtra(HELP_REQUEST_TAG, helpRequest);
+				i.putExtra(NAME_TAG, name);
+				i.putExtra(PHONE_TAG, phoneNumber);
+				startActivity(i);				
 			}
 			
 		});
@@ -129,23 +146,42 @@ public class RequestListActivity extends Activity {
 		
 		@Override
 		protected String doInBackground(String... arg0) {
-			
+			System.out.println("Test");
 			try{
 				JSONObject json = jsonParser.makeHttpRequest(url_register, "POST", params);
 				JSONArray requests = json.getJSONArray("requests");
 				
+				System.out.println("Getting requests");
 				for(int i=0; i<requests.length(); i++){
 					JSONObject request = requests.getJSONObject(i);
 					
-					String title = request.getString("Title");
-					String senderName = request.getString("First") + " " + request.getString("Last");
-					int distance = request.getInt("Distance");
+					String firstName = request.getString(FIRST_TAG);
+					String lastName = request.getString(LAST_TAG);
+					String senderName = firstName + " " + lastName;
+					String senderID = request.getString(SENDER_ID_TAG);
+					String phoneNumber = request.getString(PHONE_TAG);
+					String requestID = request.getString(REQUEST_ID_TAG);
+					String title = request.getString(TITLE_TAG);
+					String description = request.getString(DESCRIPTION_TAG);
+					String urgency = "Urgency: " + request.getString(URGENCY_TAG);
+					String distance = "Distance(km): " + String.valueOf(request.getInt(DIST_TAG));
+										
 					HashMap<String, String> map = new HashMap<String, String>();
-					map.put(TITLE_TAG, title);
+					map.put(FIRST_TAG, firstName);
+					map.put(LAST_TAG, lastName);
 					map.put(NAME_TAG, senderName);
-					map.put(DIST_TAG, String.valueOf(distance));
+					map.put(SENDER_ID_TAG, senderID);
+					map.put(PHONE_TAG, phoneNumber);
+					map.put(REQUEST_ID_TAG, requestID);
+					map.put(TITLE_TAG, title);
+					map.put(DESCRIPTION_TAG, description);
+					map.put(URGENCY_TAG, urgency);
+					map.put(DIST_TAG, distance);
 					requestList.add(map);
+					
 				}
+				System.out.println("Added requests to list");
+			
 			}catch (JSONException e){
 				e.printStackTrace();
 			}
@@ -159,8 +195,8 @@ public class RequestListActivity extends Activity {
 			ListAdapter adapter = new SimpleAdapter(RequestListActivity.this, 
 													requestList, 
 													R.layout.list_item, 
-													new String[]{TITLE_TAG, NAME_TAG, DIST_TAG}, 
-													new int[]{R.id.request_title, R.id.sender_name, R.id.distance} );
+													new String[]{TITLE_TAG, NAME_TAG, URGENCY_TAG, DIST_TAG, SENDER_ID_TAG, PHONE_TAG, REQUEST_ID_TAG, DESCRIPTION_TAG}, 
+													new int[]{R.id.request_title, R.id.sender_name, R.id.urgency, R.id.distance, R.id.sender_id, R.id.phone_number, R.id.request_id, R.id.description} );
 			listView.setAdapter(adapter);
 		}
 	}	
